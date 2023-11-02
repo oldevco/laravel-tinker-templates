@@ -12,5 +12,12 @@
             "name": "LukeOl"
         }
     ],
-    "require": {}
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OldevCo\\LaravelTinkerTemplates\\Providers\\TinkerPlaygroundServiceProvider"
+            ]
+        }
+    }
 }
