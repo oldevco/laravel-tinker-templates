@@ -1,0 +1,16 @@
+{
+    "name": "oldevco/laravel-tinker-templates",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "OldevCo\\LaravelTinkerTemplates\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "LukeOl"
+        }
+    ],
+    "require": {}
+}
