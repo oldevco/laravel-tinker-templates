@@ -3,23 +3,31 @@
 namespace OldevCo\LaravelTinkerTemplates\Playground\Parts;
 
 use OldevCo\LaravelTinkerTemplates\Playground\PartRenderInterface;
+use OldevCo\LaravelTinkerTemplates\Render\RendererHeapInterface;
 
 class ClassPart implements PartRenderInterface
 {
     private string $name;
 
-    public function __construct(string $name)
+    private PartComposite $properties;
+
+    private PartComposite $methods;
+
+    public function __construct(string $name, PartComposite $properties, PartComposite $methods)
     {
-        $this->name = $name;
+        $this->name       = $name;
+        $this->properties = $properties;
+        $this->methods    = $methods;
     }
 
-    public function render(): string
+    public function render(RendererHeapInterface $renderer): void
     {
-        return <<<STR
-class {$this->name}
-{
-
-}
-STR;
+        $renderer->add('class ' . $this->name);
+        $renderer->add('{');
+        $this->properties->render($renderer);
+        $renderer->addEmpty();
+        $this->methods->render($renderer);
+        $renderer->addEmpty();
+        $renderer->add('}');
     }
 }
