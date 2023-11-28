@@ -25,6 +25,15 @@ class MethodPart implements PartRenderInterface
 
     public function render(RendererHeapInterface $renderer): void
     {
-        // TODO: Implement render() method.
+        $renderer->withIndent(function (RendererHeapInterface $renderer) {
+            $returnType = !empty($this->returnType) ? ': ' . $this->returnType : '';
+
+            $renderer->add(sprintf('%s function %s()%s', $this->access, $this->name, $returnType));
+            $renderer->add('{');
+            $renderer->addEmpty();
+            $renderer->add('}');
+        });
+
+        $renderer->addEmpty();
     }
 }

@@ -31,6 +31,9 @@ class PropertyPart implements PartRenderInterface
     {
         $default = isset($this->default) ? ' = ' . $this->default : '';
 
-        $renderer->add(trim("{$this->access} {$this->type} \${$this->name} {$default}") . ';');
+        $renderer->withIndent(function (RendererHeapInterface $renderer) use ($default) {
+            $renderer->add(trim("{$this->access} {$this->type} \${$this->name} {$default}") . ';');
+            $renderer->addEmpty();
+        });
     }
 }

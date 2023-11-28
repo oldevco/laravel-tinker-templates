@@ -25,4 +25,15 @@ class Renderer implements RendererHeapInterface, RenderFlushInterface
         }
         return $result;
     }
+
+    public function withIndent(\Closure $callback): void
+    {
+        $that        = clone $this;
+        $that->lines = [];
+        $callback($that);
+
+        foreach ($that->lines as $line) {
+            $this->add('    ' . $line);
+        }
+    }
 }

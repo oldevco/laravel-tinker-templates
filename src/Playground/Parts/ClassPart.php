@@ -30,4 +30,9 @@ class ClassPart implements PartRenderInterface
         $renderer->addEmpty();
         $renderer->add('}');
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

@@ -30,5 +30,8 @@ class ScriptFilePart implements PartRenderInterface
         $renderer->addEmpty();
         $this->class->render($renderer);
         $renderer->addEmpty();
+
+        $renderer->add(sprintf('$script = app()->make(%s::class);', $this->class->getName()));
+        $renderer->add('$script();');
     }
 }

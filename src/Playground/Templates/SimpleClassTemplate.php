@@ -14,13 +14,11 @@ class SimpleClassTemplate
 {
     public function something(): string
     {
-        $properties = new PartComposite(
-            new PropertyPart('test', 'private', 'string'),
-            new PropertyPart('test2', 'private', 'string')
-        );
+        $properties = new PartComposite();
 
         $methods = new PartComposite(
-            new MethodPart('__construct', 'public', 'void', [])
+            new MethodPart('__construct', 'public', '', []),
+            new MethodPart('__invoke', 'public', 'void', [])
         );
 
         $class = new ClassPart('TestClass', $properties, $methods);

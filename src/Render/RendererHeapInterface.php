@@ -7,4 +7,6 @@ interface RendererHeapInterface
     public function add(string $line): void;
 
     public function addEmpty(): void;
+
+    public function withIndent(\Closure $callback): void;
 }
