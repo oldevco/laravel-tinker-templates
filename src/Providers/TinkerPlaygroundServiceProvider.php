@@ -2,10 +2,13 @@
 
 namespace OldevCo\LaravelTinkerTemplates\Providers;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Tinker\Console\TinkerCommand;
 use OldevCo\LaravelTinkerTemplates\Console\Commands\TinkerPlaygroundCommand;
+use OldevCo\LaravelTinkerTemplates\Playground\TemplateFactory;
+use OldevCo\LaravelTinkerTemplates\Playground\TemplateFactoryInterface;
 
 class TinkerPlaygroundServiceProvider extends ServiceProvider
 {
@@ -13,11 +16,13 @@ class TinkerPlaygroundServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(self::COMMAND_TAG, function () {
-            return new TinkerPlaygroundCommand();
+        $this->app->singleton(self::COMMAND_TAG, function (Application $app) {
+            return $app->make(TinkerPlaygroundCommand::class);
         });
 
         $this->commands([self::COMMAND_TAG]);
+
+        $this->app->singleton(TemplateFactoryInterface::class, TemplateFactory::class);
     }
 
     public function boot()

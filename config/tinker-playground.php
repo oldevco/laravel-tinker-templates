@@ -3,8 +3,8 @@
 use OldevCo\LaravelTinkerTemplates\Playground\Templates\SimpleClassTemplate;
 
 return [
-    /* relative path from project */
-    'script_dir' => '/',
+    /* Storage::disk('local') path */
+    'script_dir' => DIRECTORY_SEPARATOR . 'tinker-scripts',
 
     'available_templates' => [
         'simple' => SimpleClassTemplate::class,

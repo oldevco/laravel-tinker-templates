@@ -2,37 +2,23 @@
 
 namespace OldevCo\LaravelTinkerTemplates\Playground\Templates;
 
-use OldevCo\LaravelTinkerTemplates\Playground\Parts\ClassPart;
-use OldevCo\LaravelTinkerTemplates\Playground\Parts\MethodPart;
-use OldevCo\LaravelTinkerTemplates\Playground\Parts\PartComposite;
-use OldevCo\LaravelTinkerTemplates\Playground\Parts\PropertyPart;
-use OldevCo\LaravelTinkerTemplates\Playground\Parts\ScriptFilePart;
-use OldevCo\LaravelTinkerTemplates\Playground\Parts\UsePart;
-use OldevCo\LaravelTinkerTemplates\Render\Renderer;
+use OldevCo\LaravelTinkerTemplates\Playground\TemplateRenderInterface;
 
-class SimpleClassTemplate
+class SimpleClassTemplate implements TemplateRenderInterface
 {
-    public function something(): string
+    private string $template = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'templates/simple.class.tpl';
+
+    private string $className;
+
+    public function __construct(string $className)
     {
-        $properties = new PartComposite();
+        $this->className = ucfirst($className);
+    }
 
-        $methods = new PartComposite(
-            new MethodPart('__construct', 'public', '', []),
-            new MethodPart('__invoke', 'public', 'void', [])
-        );
+    public function asString(): string
+    {
+        $templateContent = file_get_contents($this->template);
 
-        $class = new ClassPart('TestClass', $properties, $methods);
-
-        $uses = new PartComposite(
-            new UsePart('Test')
-        );
-
-        $script = new ScriptFilePart('TestNamespace', $uses, $class);
-
-        $renderer = new Renderer();
-
-        $script->render($renderer);
-
-        return $renderer->asString();
+        return str_replace('{name}', $this->className, $templateContent);
     }
 }
